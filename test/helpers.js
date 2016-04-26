@@ -12,115 +12,115 @@ var path = require('path');
 Q.longStackSupport = true;
 
 var tmpLocation = path.join(
-    os.tmpdir ? os.tmpdir() : os.tmpDir(),
-    'bower-config-tests',
-    uuid.v4().slice(0, 8)
+  os.tmpdir ? os.tmpdir() : os.tmpDir(),
+  'ano-config-tests',
+  uuid.v4().slice(0, 8)
 );
 
 after(function () {
-    rimraf.sync(tmpLocation);
+  rimraf.sync(tmpLocation);
 });
 
-exports.TempDir = (function() {
-    function TempDir (defaults) {
-        this.path = path.join(tmpLocation, uuid.v4());
-        this.defaults = defaults;
-    }
+exports.TempDir = (function () {
+  function TempDir(defaults) {
+    this.path = path.join(tmpLocation, uuid.v4());
+    this.defaults = defaults;
+  }
 
-    TempDir.prototype.create = function (files, defaults) {
-        var that = this;
+  TempDir.prototype.create = function (files, defaults) {
+    var that = this;
 
-        defaults = defaults || this.defaults || {};
-        files = object.merge(files || {}, defaults);
+    defaults = defaults || this.defaults || {};
+    files = object.merge(files || {}, defaults);
 
-        this.meta = function(tag) {
-            if (tag) {
-                return files[tag]['bower.json'];
-            } else {
-                return files['bower.json'];
-            }
-        };
+    this.meta = function (tag) {
+      if (tag) {
+        return files[tag]['ano.json'];
+      } else {
+        return files['ano.json'];
+      }
+    };
 
-        if (files) {
-            object.forOwn(files, function (contents, filepath) {
-                if (typeof contents === 'object') {
-                    contents = JSON.stringify(contents, null, ' ') + '\n';
-                }
-
-                var fullPath = path.join(that.path, filepath);
-                mkdirp.sync(path.dirname(fullPath));
-                fs.writeFileSync(fullPath, contents);
-            });
+    if (files) {
+      object.forOwn(files, function (contents, filepath) {
+        if (typeof contents === 'object') {
+          contents = JSON.stringify(contents, null, ' ') + '\n';
         }
 
-        return this;
-    };
+        var fullPath = path.join(that.path, filepath);
+        mkdirp.sync(path.dirname(fullPath));
+        fs.writeFileSync(fullPath, contents);
+      });
+    }
 
-    TempDir.prototype.prepare = function (files) {
-        rimraf.sync(this.path);
-        mkdirp.sync(this.path);
-        this.create(files);
+    return this;
+  };
 
-        return this;
-    };
+  TempDir.prototype.prepare = function (files) {
+    rimraf.sync(this.path);
+    mkdirp.sync(this.path);
+    this.create(files);
 
-    // TODO: Rewrite to synchronous form
-    TempDir.prototype.prepareGit = function (revisions) {
-        var that = this;
+    return this;
+  };
 
-        revisions = object.merge(revisions || {}, this.defaults);
+  // TODO: Rewrite to synchronous form
+  TempDir.prototype.prepareGit = function (revisions) {
+    var that = this;
 
-        rimraf.sync(that.path);
+    revisions = object.merge(revisions || {}, this.defaults);
 
-        mkdirp.sync(that.path);
+    rimraf.sync(that.path);
 
-        var promise = new Q();
+    mkdirp.sync(that.path);
 
-        object.forOwn(revisions, function (files, tag) {
-            promise = promise.then(function () {
-                return that.git('init');
-            }).then(function () {
-                that.glob('./!(.git)').map(function (removePath) {
-                    var fullPath = path.join(that.path, removePath);
+    var promise = new Q();
 
-                    rimraf.sync(fullPath);
-                });
+    object.forOwn(revisions, function (files, tag) {
+      promise = promise.then(function () {
+        return that.git('init');
+      }).then(function () {
+        that.glob('./!(.git)').map(function (removePath) {
+          var fullPath = path.join(that.path, removePath);
 
-                that.create(files, {});
-            }).then(function () {
-                return that.git('add', '-A');
-            }).then(function () {
-                return that.git('commit', '-m"commit"');
-            }).then(function () {
-                return that.git('tag', tag);
-            });
+          rimraf.sync(fullPath);
         });
 
-        return promise;
-    };
+        that.create(files, {});
+      }).then(function () {
+        return that.git('add', '-A');
+      }).then(function () {
+        return that.git('commit', '-m"commit"');
+      }).then(function () {
+        return that.git('tag', tag);
+      });
+    });
 
-    TempDir.prototype.glob = function (pattern) {
-        return glob.sync(pattern, {
-            cwd: this.path,
-            dot: true
-        });
-    };
+    return promise;
+  };
 
-    TempDir.prototype.getPath = function (name) {
-        return path.join(this.path, name);
-    };
+  TempDir.prototype.glob = function (pattern) {
+    return glob.sync(pattern, {
+      cwd: this.path,
+      dot: true
+    });
+  };
 
-    TempDir.prototype.read = function (name) {
-        return fs.readFileSync(this.getPath(name), 'utf8');
-    };
+  TempDir.prototype.getPath = function (name) {
+    return path.join(this.path, name);
+  };
 
-    TempDir.prototype.readJson = function (name) {
-        return JSON.parse(this.read(name));
-    };
+  TempDir.prototype.read = function (name) {
+    return fs.readFileSync(this.getPath(name), 'utf8');
+  };
 
-    TempDir.prototype.exists = function (name) {
-        return fs.existsSync(path.join(this.path, name));
-    };
+  TempDir.prototype.readJson = function (name) {
+    return JSON.parse(this.read(name));
+  };
 
-    return TempDir;
+  TempDir.prototype.exists = function (name) {
+    return fs.existsSync(path.join(this.path, name));
+  };
+
+  return TempDir;
 })();

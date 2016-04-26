@@ -1,12 +1,12 @@
 {
-  "name": "bower-config",
+  "name": "ano-config",
   "version": "1.4.0",
   "description": "The Bower config reader and writer.",
   "author": "Twitter",
   "license": "MIT",
-  "repository": "bower/config",
+  "repository": "taoyuan/ano-config",
   "main": "lib/Config",
-  "homepage": "http://bower.io",
+  "homepage": "http://ano.io",
   "engines": {
     "node": ">=0.8.0"
   },

@@ -1,6 +1,6 @@
-# bower-config [![Build Status](https://secure.travis-ci.org/bower/config.png?branch=master)](http://travis-ci.org/bower/config)[![Coverage Status](https://coveralls.io/repos/bower/config/badge.svg?branch=master&service=github)](https://coveralls.io/github/bower/config?branch=master)
+# ano-config
 
-> The Bower config (`.bowerrc`) reader and writer.
+> The Ano config (`.anorc`) reader and writer.
 
 The config spec can be read [here](https://docs.google.com/document/d/1APq7oA9tNao1UYWyOm8dKqlRP2blVkROYLZ2fLIjtWc/).
 
@@ -8,7 +8,7 @@ The config spec can be read [here](https://docs.google.com/document/d/1APq7oA9tN
 ## Install
 
 ```sh
-$ npm install --save bower-config
+$ npm install --save ano-config
 ```
 
 
@@ -16,7 +16,7 @@ $ npm install --save bower-config
 
 #### .load(overwrites)
 
-Loads the bower configuration from the configuration files.
+Loads the ano configuration from the configuration files.
 
 Configuration is overwritten (after camelcase normalisation) with `overwrites` argument.
 
@@ -46,9 +46,9 @@ The object keys will be camelCase.
 Obtains a instance where `cwd` is the current working directory (defaults to `process.cwd`);
 
 ```js
-var config = require('bower-config').create();
+var config = require('ano-config').create();
 // You can also specify a working directory
-var config2 = require('bower-config').create('./some/path');
+var config2 = require('ano-config').create('./some/path');
 ```
 
 #### #read(cwd, overrides)
