@@ -68,7 +68,7 @@ describe('NPM Config on package.json', function () {
     delete config.storage;
 
     assert.deepEqual(config, {
-      'directory': 'ano_libraries',
+      'directory': 'libraries',
       'registry': {
         'default': 'https://ano.herokuapp.com',
         'search': [
