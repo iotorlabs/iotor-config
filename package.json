@@ -1,6 +1,6 @@
 {
   "name": "ano-config",
-  "version": "1.5.0-alpha.0",
+  "version": "1.5.0",
   "description": "The Bower config reader and writer.",
   "author": "Twitter",
   "license": "MIT",
