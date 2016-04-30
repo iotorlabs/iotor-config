@@ -1,12 +1,12 @@
 {
-  "name": "ano-config",
+  "name": "racoon-config",
   "version": "1.5.0",
-  "description": "The Bower config reader and writer.",
+  "description": "The Racoon config reader and writer.",
   "author": "Twitter",
   "license": "MIT",
-  "repository": "taoyuan/ano-config",
+  "repository": "racoonio/racoon-config",
   "main": "lib/Config",
-  "homepage": "http://ano.io",
+  "homepage": "http://racoon.io",
   "engines": {
     "node": ">=0.8.0"
   },

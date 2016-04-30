@@ -13,7 +13,7 @@ Q.longStackSupport = true;
 
 var tmpLocation = path.join(
   os.tmpdir ? os.tmpdir() : os.tmpDir(),
-  'ano-config-tests',
+  'racoon-config-tests',
   uuid.v4().slice(0, 8)
 );
 
@@ -35,9 +35,9 @@ exports.TempDir = (function () {
 
     this.meta = function (tag) {
       if (tag) {
-        return files[tag]['ano.json'];
+        return files[tag]['racoon.json'];
       } else {
-        return files['ano.json'];
+        return files['racoon.json'];
       }
     };
 

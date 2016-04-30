@@ -1,6 +1,6 @@
-# ano-config
+# racoon-config
 
-> The Ano config (`.anorc`) reader and writer.
+> The Ano config (`.racoonrc`) reader and writer.
 
 The config spec can be read [here](https://docs.google.com/document/d/1APq7oA9tNao1UYWyOm8dKqlRP2blVkROYLZ2fLIjtWc/).
 
@@ -8,7 +8,7 @@ The config spec can be read [here](https://docs.google.com/document/d/1APq7oA9tN
 ## Install
 
 ```sh
-$ npm install --save ano-config
+$ npm install --save racoon-config
 ```
 
 
@@ -16,7 +16,7 @@ $ npm install --save ano-config
 
 #### .load(overwrites)
 
-Loads the ano configuration from the configuration files.
+Loads the racoon configuration from the configuration files.
 
 Configuration is overwritten (after camelcase normalisation) with `overwrites` argument.
 
@@ -46,9 +46,9 @@ The object keys will be camelCase.
 Obtains a instance where `cwd` is the current working directory (defaults to `process.cwd`);
 
 ```js
-var config = require('ano-config').create();
+var config = require('racoon-config').create();
 // You can also specify a working directory
-var config2 = require('ano-config').create('./some/path');
+var config2 = require('racoon-config').create('./some/path');
 ```
 
 #### #read(cwd, overrides)

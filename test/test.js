@@ -3,21 +3,21 @@ var path = require('path');
 
 describe('NPM Config on package.json', function () {
   beforeEach(function () {
-    delete process.env.npm_package_config_ano_directory;
-    delete process.env.npm_package_config_ano_colors;
-    delete process.env.npm_package_config_ano_resolvers;
+    delete process.env.npm_package_config_racoon_directory;
+    delete process.env.npm_package_config_racoon_colors;
+    delete process.env.npm_package_config_racoon_resolvers;
   });
 
   it('defaults registry entries to default registry', function () {
     var config = require('../lib/Config').read(null, {});
 
     assert.deepEqual(config.registry, {
-      'default': 'https://ano.herokuapp.com',
+      'default': 'https://racoonio.herokuapp.com',
       'search': [
-        'https://ano.herokuapp.com'
+        'https://racoonio.herokuapp.com'
       ],
-      'register': 'https://ano.herokuapp.com',
-      'publish': 'https://ano.herokuapp.com'
+      'register': 'https://racoonio.herokuapp.com',
+      'publish': 'https://racoonio.herokuapp.com'
     });
   });
 
@@ -38,12 +38,12 @@ describe('NPM Config on package.json', function () {
     var config = require('../lib/Config').read(null, {registry: {search: 'https://foobar'}});
 
     assert.deepEqual(config.registry, {
-      'default': 'https://ano.herokuapp.com',
+      'default': 'https://racoonio.herokuapp.com',
       'search': [
         'https://foobar',
       ],
-      'register': 'https://ano.herokuapp.com',
-      'publish': 'https://ano.herokuapp.com'
+      'register': 'https://racoonio.herokuapp.com',
+      'publish': 'https://racoonio.herokuapp.com'
     });
   });
 
@@ -70,12 +70,12 @@ describe('NPM Config on package.json', function () {
     assert.deepEqual(config, {
       'directory': 'libraries',
       'registry': {
-        'default': 'https://ano.herokuapp.com',
+        'default': 'https://racoonio.herokuapp.com',
         'search': [
-          'https://ano.herokuapp.com'
+          'https://racoonio.herokuapp.com'
         ],
-        'register': 'https://ano.herokuapp.com',
-        'publish': 'https://ano.herokuapp.com'
+        'register': 'https://racoonio.herokuapp.com',
+        'publish': 'https://racoonio.herokuapp.com'
       },
       'shorthandResolver': 'https://github.com/{{owner}}/{{package}}.git',
       'tmp': '/foo/bar',
@@ -102,19 +102,19 @@ describe('NPM Config on package.json', function () {
   }
 
   describe('Setting process.env.npm_package_config', function () {
-    process.env.npm_package_config_ano_directory = 'npm-path';
-    process.env.npm_package_config_ano_colors = 'false';
-    process.env.npm_package_config_ano_resolvers = '[foo,bar,baz]';
+    process.env.npm_package_config_racoon_directory = 'npm-path';
+    process.env.npm_package_config_racoon_colors = 'false';
+    process.env.npm_package_config_racoon_resolvers = '[foo,bar,baz]';
 
     var config = require('../lib/Config').read();
 
-    it('should return "npm-path" for "ano_directory"', function () {
+    it('should return "npm-path" for "racoon_directory"', function () {
       assert.equal('npm-path', config.directory);
     });
-    it('should return "false" for "ano_colors"', function () {
+    it('should return "false" for "racoon_colors"', function () {
       assert.equal('false', config.colors);
     });
-    it('should expand array "false" for "ano_resolvers"', function () {
+    it('should expand array "false" for "racoon_resolvers"', function () {
       assert.deepEqual(['foo', 'bar', 'baz'], config.resolvers);
     });
   });
@@ -137,7 +137,7 @@ describe('NPM Config on package.json', function () {
       });
     });
 
-    it('should backward-support certificate inside .anorc', function () {
+    it('should backward-support certificate inside .racoonrc', function () {
       var config = require('../lib/Config')
         .read(path.resolve('test/assets/custom-ca-embed'));
 
@@ -219,7 +219,7 @@ describe('NPM Config on package.json', function () {
   });
 });
 
-describe('Allow ${ENV} variables in .anorc', function () {
+describe('Allow ${ENV} variables in .racoonrc', function () {
 
   it('sets values from process.env', function () {
     process.env._BOWERRC_MY_PACKAGES = 'a';
@@ -232,13 +232,13 @@ describe('Allow ${ENV} variables in .anorc', function () {
   });
 });
 
-describe('untildify paths in .anorc', function () {
+describe('untildify paths in .racoonrc', function () {
 
-  it('resolve ~/ in .anorc', function () {
+  it('resolve ~/ in .racoonrc', function () {
     var config = require('../lib/Config').read('test/assets/env-variables-values');
     var untildify = require('untildify');
 
-    assert.equal(untildify('~/.ano-test/registry'), config.storage.registry);
+    assert.equal(untildify('~/.racoon-test/registry'), config.storage.registry);
   });
 });
 
