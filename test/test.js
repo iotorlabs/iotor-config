@@ -3,21 +3,21 @@ var path = require('path');
 
 describe('NPM Config on package.json', function () {
   beforeEach(function () {
-    delete process.env.npm_package_config_racoon_directory;
-    delete process.env.npm_package_config_racoon_colors;
-    delete process.env.npm_package_config_racoon_resolvers;
+    delete process.env.npm_package_config_iotor_directory;
+    delete process.env.npm_package_config_iotor_colors;
+    delete process.env.npm_package_config_iotor_resolvers;
   });
 
   it('defaults registry entries to default registry', function () {
     var config = require('../lib/Config').read(null, {});
 
     assert.deepEqual(config.registry, {
-      'default': 'https://racoonio.herokuapp.com',
+      'default': 'https://iotor.herokuapp.com',
       'search': [
-        'https://racoonio.herokuapp.com'
+        'https://iotor.herokuapp.com'
       ],
-      'register': 'https://racoonio.herokuapp.com',
-      'publish': 'https://racoonio.herokuapp.com'
+      'register': 'https://iotor.herokuapp.com',
+      'publish': 'https://iotor.herokuapp.com'
     });
   });
 
@@ -38,12 +38,12 @@ describe('NPM Config on package.json', function () {
     var config = require('../lib/Config').read(null, {registry: {search: 'https://foobar'}});
 
     assert.deepEqual(config.registry, {
-      'default': 'https://racoonio.herokuapp.com',
+      'default': 'https://iotor.herokuapp.com',
       'search': [
         'https://foobar',
       ],
-      'register': 'https://racoonio.herokuapp.com',
-      'publish': 'https://racoonio.herokuapp.com'
+      'register': 'https://iotor.herokuapp.com',
+      'publish': 'https://iotor.herokuapp.com'
     });
   });
 
@@ -70,12 +70,12 @@ describe('NPM Config on package.json', function () {
     assert.deepEqual(config, {
       'directory': 'libraries',
       'registry': {
-        'default': 'https://racoonio.herokuapp.com',
+        'default': 'https://iotor.herokuapp.com',
         'search': [
-          'https://racoonio.herokuapp.com'
+          'https://iotor.herokuapp.com'
         ],
-        'register': 'https://racoonio.herokuapp.com',
-        'publish': 'https://racoonio.herokuapp.com'
+        'register': 'https://iotor.herokuapp.com',
+        'publish': 'https://iotor.herokuapp.com'
       },
       'shorthandResolver': 'https://github.com/{{owner}}/{{package}}.git',
       'tmp': '/foo/bar',
@@ -102,19 +102,19 @@ describe('NPM Config on package.json', function () {
   }
 
   describe('Setting process.env.npm_package_config', function () {
-    process.env.npm_package_config_racoon_directory = 'npm-path';
-    process.env.npm_package_config_racoon_colors = 'false';
-    process.env.npm_package_config_racoon_resolvers = '[foo,bar,baz]';
+    process.env.npm_package_config_iotor_directory = 'npm-path';
+    process.env.npm_package_config_iotor_colors = 'false';
+    process.env.npm_package_config_iotor_resolvers = '[foo,bar,baz]';
 
     var config = require('../lib/Config').read();
 
-    it('should return "npm-path" for "racoon_directory"', function () {
+    it('should return "npm-path" for "iotor_directory"', function () {
       assert.equal('npm-path', config.directory);
     });
-    it('should return "false" for "racoon_colors"', function () {
+    it('should return "false" for "iotor_colors"', function () {
       assert.equal('false', config.colors);
     });
-    it('should expand array "false" for "racoon_resolvers"', function () {
+    it('should expand array "false" for "iotor_resolvers"', function () {
       assert.deepEqual(['foo', 'bar', 'baz'], config.resolvers);
     });
   });
@@ -137,7 +137,7 @@ describe('NPM Config on package.json', function () {
       });
     });
 
-    it('should backward-support certificate inside .racoonrc', function () {
+    it('should backward-support certificate inside .iotorrc', function () {
       var config = require('../lib/Config')
         .read(path.resolve('test/assets/custom-ca-embed'));
 
@@ -219,7 +219,7 @@ describe('NPM Config on package.json', function () {
   });
 });
 
-describe('Allow ${ENV} variables in .racoonrc', function () {
+describe('Allow ${ENV} variables in .iotorrc', function () {
 
   it('sets values from process.env', function () {
     process.env._BOWERRC_MY_PACKAGES = 'a';
@@ -232,13 +232,13 @@ describe('Allow ${ENV} variables in .racoonrc', function () {
   });
 });
 
-describe('untildify paths in .racoonrc', function () {
+describe('untildify paths in .iotorrc', function () {
 
-  it('resolve ~/ in .racoonrc', function () {
+  it('resolve ~/ in .iotorrc', function () {
     var config = require('../lib/Config').read('test/assets/env-variables-values');
     var untildify = require('untildify');
 
-    assert.equal(untildify('~/.racoon-test/registry'), config.storage.registry);
+    assert.equal(untildify('~/.iotor-test/registry'), config.storage.registry);
   });
 });
 

@@ -13,7 +13,7 @@ Q.longStackSupport = true;
 
 var tmpLocation = path.join(
   os.tmpdir ? os.tmpdir() : os.tmpDir(),
-  'racoon-config-tests',
+  'iotor-config-tests',
   uuid.v4().slice(0, 8)
 );
 
@@ -35,9 +35,9 @@ exports.TempDir = (function () {
 
     this.meta = function (tag) {
       if (tag) {
-        return files[tag]['racoon.json'];
+        return files[tag]['iotor.json'];
       } else {
-        return files['racoon.json'];
+        return files['iotor.json'];
       }
     };
 

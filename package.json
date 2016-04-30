@@ -1,12 +1,12 @@
 {
-  "name": "racoon-config",
+  "name": "iotor-config",
   "version": "1.6.0",
-  "description": "The Racoon config reader and writer.",
+  "description": "The Iotor config reader and writer.",
   "author": "Twitter",
   "license": "MIT",
-  "repository": "racoonio/racoon-config",
+  "repository": "iotorlabs/iotor-config",
   "main": "lib/Config",
-  "homepage": "http://racoon.io",
+  "homepage": "http://iotor.io",
   "engines": {
     "node": ">=0.8.0"
   },

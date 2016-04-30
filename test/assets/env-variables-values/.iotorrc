@@ -4,7 +4,7 @@
   },
   "storage": {
     "packages": "${_BOWERRC_MY_PACKAGES}",
-    "registry": "~/.racoon-test/registry"
+    "registry": "~/.iotor-test/registry"
   },
   "tmp": "${_BOWERRC_MY_TMP}"
 }
